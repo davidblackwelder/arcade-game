@@ -18,11 +18,11 @@ class Enemy {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    if (this.x < 5) {
-        this.x += this.speed * dt; 
-    } else {
-        this.x = -1;
-    }
+        if (this.x < 5) {
+            this.x += this.speed * dt; 
+        } else {
+            this.x = -1;
+        }
     }
 }
 
@@ -58,6 +58,21 @@ class Player {
                 this.y < 5 ? this.y += 1 : this.y;
                 break;
         }
+    }
+
+    update() {
+        for(let enemy of allEnemies) {
+            if(this.y === enemy.y) {
+                if(this.x <= enemy.x + 0.5 && this.x >= enemy.x - 0.5) {
+                    this.reset();
+                }
+            }
+        }
+    }
+
+    reset() {
+        this.x = 2;
+        this.y = 5;
     }
 }
 
