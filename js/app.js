@@ -1,8 +1,9 @@
 // Enemies our player must avoid
 class Enemy {
-    constructor(x, y) {
+    constructor(x, y, speed) {
     this.x = x;
     this.y = y;
+    this.speed = speed;
     this.sprite = 'images/enemy-bug.png';
     }
 
@@ -18,7 +19,7 @@ class Enemy {
     // which will ensure the game runs at the same speed for
     // all computers.
     if (this.x < 5) {
-        this.x += 1 * dt; 
+        this.x += this.speed * dt; 
     } else {
         this.x = -1;
     }
@@ -66,9 +67,9 @@ class Player {
 // Place the player object in a variable called player
 
 const player = new Player();
-const enemy1 = new Enemy(0, 1);
-const enemy2 = new Enemy(0, 2);
-const enemy3 = new Enemy(0, 3);
+const enemy1 = new Enemy(0, 1, Math.floor(Math.random() * 4) + 1);
+const enemy2 = new Enemy(0, 2, Math.floor(Math.random() * 4) + 1);
+const enemy3 = new Enemy(0, 3, Math.floor(Math.random() * 4) + 1);
 const allEnemies = [];
 allEnemies.push(enemy1, enemy2, enemy3);
 
