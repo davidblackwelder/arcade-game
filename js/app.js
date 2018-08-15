@@ -26,13 +26,30 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 class Player {
     constructor() {
-        this.x = 0;
-        this.y = 0;
+        this.x = 2;
+        this.y = 4;
         this.sprite = 'images/char-boy.png';
     }
 
     render() {
-        ctx.drawImage(Resources.get(this.sprite), this.x * 101, this.y * 80 - 20);
+        ctx.drawImage(Resources.get(this.sprite), this.x * 101, this.y * 80 - 20); // center player character on all squares
+    }
+
+    handleInput(input) {
+        switch(input) {
+            case 'left':
+                this.x > 0 ? this.x -= 1 : this.x;
+                break;
+            case 'right':
+                this.x < 4 ? this.x += 1 : this.x;
+                break;
+            case 'up':
+                this.y > 0 ? this.y -= 1 : this.y;
+                break;
+            case 'down':
+                this.y < 5 ? this.y += 1 : this.y;
+                break;
+        }
     }
 }
 
