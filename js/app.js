@@ -1,14 +1,14 @@
 // Enemies our player must avoid
 class Enemy {
-    constructor() {
-    this.x = 0;
-    this.y = 1;
+    constructor(x, y) {
+    this.x = x;
+    this.y = y;
     this.sprite = 'images/enemy-bug.png';
     }
 
     // Draw the enemy on the screen, required method for game
     render() {
-        ctx.drawImage(Resources.get(this.sprite), this.x * 101, this.y * 80 - 16); // center enemy objects on all squares
+        ctx.drawImage(Resources.get(this.sprite), this.x * 101, this.y * 80 - 19); // center enemy objects on all squares
     }
 
     // Update the enemy's position, required method for game
@@ -19,6 +19,8 @@ class Enemy {
     // all computers.
     if (this.x < 5) {
         this.x += 1 * dt; 
+    } else {
+        this.x = -1;
     }
     }
 }
@@ -64,9 +66,11 @@ class Player {
 // Place the player object in a variable called player
 
 const player = new Player();
-const enemy1 = new Enemy();
+const enemy1 = new Enemy(0, 1);
+const enemy2 = new Enemy(0, 2);
+const enemy3 = new Enemy(0, 3);
 const allEnemies = [];
-allEnemies.push(enemy1);
+allEnemies.push(enemy1, enemy2, enemy3);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
