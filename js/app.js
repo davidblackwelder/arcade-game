@@ -1,25 +1,30 @@
 // Enemies our player must avoid
-var Enemy = function() {
+class Enemy {
+    constructor() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
+    this.x = 0;
+    this.y = 0;
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
-};
+    }
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
-Enemy.prototype.update = function(dt) {
+    // Draw the enemy on the screen, required method for game
+    render() {
+        ctx.drawImage(Resources.get(this.sprite), this.x * 101 - 20, this.y * 80 - 20);
+    }
+
+    // Update the enemy's position, required method for game
+    // Parameter: dt, a time delta between ticks
+    update(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-};
+    }
+}
 
-// Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -35,6 +40,9 @@ class Player {
         ctx.drawImage(Resources.get(this.sprite), this.x * 101, this.y * 80 - 20); // center player character on all squares
     }
 
+    /*
+    * Handle user input for moving player and checking if player is on the edge of canvas to prevent going off screen
+    */
     handleInput(input) {
         switch(input) {
             case 'left':
