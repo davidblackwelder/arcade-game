@@ -2,10 +2,10 @@
 
 // Enemies our player must avoid
 class Enemy {
-    constructor(x, y, speed) {
+    constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.speed = speed;
+        this.speed = Math.floor(1 + Math.random() * 5);
         this.sprite = 'images/enemy-bug.png';
     }
 
@@ -23,6 +23,15 @@ class Enemy {
         } else {
             this.x = -1;
         }
+    }
+
+    changeSpeed(max) {
+        this.speed = 0.5 + Math.random() * max;
+    }
+
+    reset () {
+        this.changeSpeed(4.0);
+        this.x = -(Math.floor(1 + Math.random() * 5));
     }
 }
 
@@ -67,7 +76,6 @@ class Player {
         for(let enemy of allEnemies) {
             if(this.y === enemy.y) {
                 if(this.x <= enemy.x + 0.65 && this.x >= enemy.x - 0.65) {
-                    debugger;
                     this.reset();
                 }
             }
@@ -94,9 +102,9 @@ class Player {
 
 const player = new Player();
 const allEnemies = [
-    new Enemy(0, 1, Math.floor(Math.random() * 5) + 1),
-    new Enemy(0, 2, Math.floor(Math.random() * 4) + 1),
-    new Enemy(0, 3, Math.floor(Math.random() * 3) + 1)
+    new Enemy(0, 1),
+    new Enemy(0, 2),
+    new Enemy(0, 3)
 ];
 
 // This listens for key presses and sends the keys to your

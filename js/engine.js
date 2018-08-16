@@ -74,7 +74,7 @@ var Engine = (function(global) {
 
         function closeModal() {
             modal.classList.remove('show-modal');
-            player.reset();
+            reset();
             win.requestAnimationFrame(main);
         }
     }
@@ -218,7 +218,11 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // noop
+        allEnemies.forEach(function(enemy) {
+            enemy.reset();
+        });
+
+        player.reset();
     }
 
     /* Go ahead and load all of the images we know we're going to need to
