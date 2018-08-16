@@ -1,10 +1,12 @@
+'use strict';
+
 // Enemies our player must avoid
 class Enemy {
     constructor(x, y, speed) {
-    this.x = x;
-    this.y = y;
-    this.speed = speed;
-    this.sprite = 'images/enemy-bug.png';
+        this.x = x;
+        this.y = y;
+        this.speed = speed;
+        this.sprite = 'images/enemy-bug.png';
     }
 
     // Draw the enemy on the screen, required method for game
@@ -15,9 +17,7 @@ class Enemy {
     // Update the enemy's position, required method for game
     // Parameter: dt, a time delta between ticks
     update(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
+        // check if enemy is on last column and moves enemy accordingly
         if (this.x < 5) {
             this.x += this.speed * dt; 
         } else {
@@ -26,9 +26,6 @@ class Enemy {
     }
 }
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
 class Player {
     constructor() {
         this.x = 2;
@@ -69,7 +66,8 @@ class Player {
         // check for collisions 
         for(let enemy of allEnemies) {
             if(this.y === enemy.y) {
-                if(this.x <= enemy.x + 0.5 && this.x >= enemy.x - 0.5) {
+                if(this.x <= enemy.x + 0.65 && this.x >= enemy.x - 0.65) {
+                    debugger;
                     this.reset();
                 }
             }
@@ -81,6 +79,7 @@ class Player {
         }
     }
 
+    // resets player to starting square and resets win and moving properties
     reset() {
         this.x = 2;
         this.y = 5;
@@ -94,11 +93,11 @@ class Player {
 // Place the player object in a variable called player
 
 const player = new Player();
-const enemy1 = new Enemy(0, 1, Math.floor(Math.random() * 5) + 1);
-const enemy2 = new Enemy(0, 2, Math.floor(Math.random() * 4) + 1);
-const enemy3 = new Enemy(0, 3, Math.floor(Math.random() * 3) + 1);
-const allEnemies = [];
-allEnemies.push(enemy1, enemy2, enemy3);
+const allEnemies = [
+    new Enemy(0, 1, Math.floor(Math.random() * 5) + 1),
+    new Enemy(0, 2, Math.floor(Math.random() * 4) + 1),
+    new Enemy(0, 3, Math.floor(Math.random() * 3) + 1)
+];
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
