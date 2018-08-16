@@ -32,11 +32,52 @@ var Engine = (function(global) {
     const modal = document.querySelector('.modal');
     const playAgain = document.querySelector('.modal-restart');
 
-    playAgain.addEventListener('click', function() {
-        modal.classList.toggle('show-modal');
-        player.reset();
-        win.requestAnimationFrame(main);
-    });
+
+    // implementing a11y code from Udacity a11y course to set focus on play again button in modal window
+    
+    // hold previously focused element
+    let focusedElementBeforeModal;
+
+    function openModal() {
+        focusedElementBeforeModal = document.activeElement;
+        modal.addEventListener('keydown', trapTabKey);
+        playAgain.addEventListener('click', closeModal);
+
+        let focusableElementsString = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
+
+        let focusabledElements = modal.querySelectorAll(focusableElementsString);
+
+        focusabledElements = Array.prototype.slice.call(focusabledElements);
+
+        let firstTabStop = focusabledElements[0];
+        let lastTabStop = focusabledElements[focusabledElements.length - 1];
+
+        modal.classList.add('show-modal');
+
+        firstTabStop.focus();
+
+        function trapTabKey(e) {
+            if (e.keyCode === 9) {
+                if (e.shiftKey) {
+                    if (document.activeElement === firstTabStop) {
+                        e.preventDefault();
+                        lastTabStop.focus();
+                    }
+                } else {
+                    if (document.activeElement === lastTabStop) {
+                        e.preventDefault();
+                        firstTabStop.focus();
+                    }
+                }
+            }
+        }
+
+        function closeModal() {
+            modal.classList.remove('show-modal');
+            player.reset();
+            win.requestAnimationFrame(main);
+        }
+    }
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
@@ -67,7 +108,7 @@ var Engine = (function(global) {
          */
         if(player.win === true) {
             win.cancelAnimationFrame(id);
-            modal.classList.toggle('show-modal');
+            openModal();
         } else {
             id = win.requestAnimationFrame(main);
         }
