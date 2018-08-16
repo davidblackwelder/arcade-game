@@ -1,5 +1,7 @@
 body {
+    height: 100vh;
     text-align: center;
+    background: linear-gradient(to bottom right, purple, white);
 }
 
 .modal {
@@ -29,7 +31,6 @@ body {
 }
 
 .modal-restart {
-    margin-left: 6rem;
     background-color: rgb(250, 170, 23);
     color: white;
     font-weight: bolder;
