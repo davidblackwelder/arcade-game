@@ -85,6 +85,7 @@ class Player {
         this.x = 2;
         this.y = 5;
         this.win = false;
+        this.moving = false;
     }
 }
 

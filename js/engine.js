@@ -29,6 +29,15 @@ var Engine = (function(global) {
     canvas.height = 606;
     doc.body.appendChild(canvas);
 
+    const modal = document.querySelector('.modal');
+    const playAgain = document.querySelector('.modal-restart');
+
+    playAgain.addEventListener('click', function() {
+        modal.classList.toggle('show-modal');
+        player.reset();
+        win.requestAnimationFrame(main);
+    });
+
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
      */
@@ -58,6 +67,7 @@ var Engine = (function(global) {
          */
         if(player.win === true) {
             win.cancelAnimationFrame(id);
+            modal.classList.toggle('show-modal');
         } else {
             id = win.requestAnimationFrame(main);
         }
