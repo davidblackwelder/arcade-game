@@ -34,10 +34,13 @@ class Player {
         this.x = 2;
         this.y = 5;
         this.sprite = 'images/char-boy.png';
+        this.moving = false;
+        this.win = false;
     }
 
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x * 101, this.y * 80 - 20); // center player character on all squares
+        this.moving = false;
     }
 
     /*
@@ -58,9 +61,12 @@ class Player {
                 this.y < 5 ? this.y += 1 : this.y;
                 break;
         }
+        this.moving = true;
     }
 
     update() {
+        
+        // check for collisions 
         for(let enemy of allEnemies) {
             if(this.y === enemy.y) {
                 if(this.x <= enemy.x + 0.5 && this.x >= enemy.x - 0.5) {
@@ -68,11 +74,17 @@ class Player {
                 }
             }
         }
+
+        // check for win
+        if(this.y === 0) {
+            this.win = true;
+        }
     }
 
     reset() {
         this.x = 2;
         this.y = 5;
+        this.win = false;
     }
 }
 
