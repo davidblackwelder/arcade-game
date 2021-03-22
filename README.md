@@ -1,6 +1,6 @@
 # Arcade Game
 
-Live version: https://arcade.davidblackwelder.dev
+Live version: https://arcade-game.davidblackwelder.dev
 
 ## Languages Used
 * HTML5
